@@ -85,17 +85,22 @@ public class Field extends JPanel
             {
                 if ((Math.abs(ev.getX() - balls.get(i).x)) <= balls.get(i).radius && (Math.abs(ev.getY() - balls.get(i).y)) <= balls.get(i).radius)
                 {
+<<<<<<< HEAD
                     countTimer.start();
                     number = i;
                     click = true;
                     pause();
                     break;
+=======
+                    pause();
+>>>>>>> master
                 }
             }
         }
 
         public void mouseReleased(MouseEvent ev)
         {
+<<<<<<< HEAD
             if (click == true)
             {
                 countTimer.stop();
@@ -114,6 +119,9 @@ public class Field extends JPanel
                 click = false;
                 resume();
             }
+=======
+            resume();
+>>>>>>> master
         }
     }
     public class MouseMotionHandler implements MouseMotionListener

@@ -8,6 +8,7 @@ public class BouncingBall implements Runnable
     private static final int MAX_RADIUS = 40;
     private static final int MIN_RADIUS = 3;
     private Field field;
+<<<<<<< HEAD
     private Color color;
     public static final int MAX_SPEED = 15;
     public int radius;
@@ -16,6 +17,15 @@ public class BouncingBall implements Runnable
     public int speed;
     public double speedX;
     public double speedY;
+=======
+    public int radius;
+    private Color color;
+    public double x;
+    public double y;
+    private int speed;
+    private double speedX;
+    private double speedY;
+>>>>>>> master
     public BouncingBall(Field field)
     {
         this.field = field;
