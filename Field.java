@@ -14,12 +14,21 @@ public class Field extends JPanel
 {
     private boolean paused;
     private int number;
+    private boolean click = false;
+    int time = 0;
     ArrayList<BouncingBall> balls = new ArrayList<BouncingBall>(10);
     private Timer repaintTimer = new Timer(10, new ActionListener()
     {
         public void actionPerformed(ActionEvent ev)
         {
             repaint();
+        }
+    });
+    private Timer countTimer = new Timer(10, new ActionListener()
+    {
+        public void actionPerformed(ActionEvent ev)
+        {
+            time++;
         }
     });
     public Field()
@@ -76,7 +85,9 @@ public class Field extends JPanel
             {
                 if ((Math.abs(ev.getX() - balls.get(i).x)) <= balls.get(i).radius && (Math.abs(ev.getY() - balls.get(i).y)) <= balls.get(i).radius)
                 {
+                    countTimer.start();
                     number = i;
+                    click = true;
                     pause();
                     break;
                 }
@@ -85,14 +96,24 @@ public class Field extends JPanel
 
         public void mouseReleased(MouseEvent ev)
         {
-            double side1 = ev.getX() - balls.get(number).x;
-            double side2 = ev.getY() - balls.get(number).y;
-            double side3 = Math.sqrt(Math.pow(side1, 2) + Math.pow(side2, 2));
-            double cosx = side1 / side3;
-            double sinx = side2 / side3;
-            balls.get(number).speedX = 3 * cosx;
-            balls.get(number).speedY = 3 * sinx;
-            resume();
+            if (click == true)
+            {
+                countTimer.stop();
+                double side1 = ev.getX() - balls.get(number).x;
+                double side2 = ev.getY() - balls.get(number).y;
+                double side3 = Math.sqrt(Math.pow(side1, 2) + Math.pow(side2, 2));
+                double cosx = side1 / side3;
+                double sinx = side2 / side3;
+                balls.get(number).speedX = 3 * cosx;
+                balls.get(number).speedY = 3 * sinx;
+                balls.get(number).speed = new Double(side3 / (time)).intValue();
+                if (balls.get(number).speed > balls.get(number).MAX_SPEED) {
+                    balls.get(number).speed = balls.get(number).MAX_SPEED;
+                }
+                time = 0;
+                click = false;
+                resume();
+            }
         }
     }
     public class MouseMotionHandler implements MouseMotionListener

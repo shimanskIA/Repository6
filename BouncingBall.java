@@ -7,10 +7,10 @@ public class BouncingBall implements Runnable
 {
     private static final int MAX_RADIUS = 40;
     private static final int MIN_RADIUS = 3;
-    private static final int MAX_SPEED = 15;
     private Field field;
-    public int radius;
     private Color color;
+    public static final int MAX_SPEED = 15;
+    public int radius;
     public double x;
     public double y;
     public int speed;
@@ -65,7 +65,15 @@ public class BouncingBall implements Runnable
                        x += speedX;
                        y += speedY;
                    }
-               Thread.sleep(16-speed);
+               if (speed != 0)
+               {
+                   Thread.sleep(16 - speed);
+               }
+               else
+               {
+                   speedX = 0;
+                   speedY = 0;
+               }
             }
         }
         catch (InterruptedException ex)
